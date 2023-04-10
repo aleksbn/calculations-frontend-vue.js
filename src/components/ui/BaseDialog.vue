@@ -1,23 +1,54 @@
 <template>
-  <div>
-    <teleport to="body">
-      <dialog open>
-        <header>
-          <slot name="header">
-            <h2>{{ title }}</h2>
-          </slot>
-        </header>
-        <section>
-          <slot> </slot>
-        </section>
-      </dialog>
-    </teleport>
-  </div>
+  <teleport to="body">
+    <div v-if="show" @click="tryClose" class="backdrop"></div>
+    <dialog open v-if="show">
+      <header>
+        <slot name="header">
+          <h2>{{ title }}</h2>
+        </slot>
+      </header>
+      <section>
+        <slot></slot>
+      </section>
+      <menu v-if="!fixed">
+        <slot name="actions">
+          <base-button v-if="showClose" @click="tryClose">Close</base-button>
+        </slot>
+      </menu>
+    </dialog>
+  </teleport>
 </template>
 
 <script>
 export default {
-  props: ["title"],
+  props: {
+    show: {
+      type: Boolean,
+      required: true,
+    },
+    showClose: {
+      type: Boolean,
+      required: true
+    },
+    title: {
+      type: String,
+      required: false,
+    },
+    fixed: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  emits: ['close'],
+  methods: {
+    tryClose() {
+      if (this.fixed) {
+        return;
+      }
+      this.$emit('close');
+    },
+  },
 };
 </script>
 

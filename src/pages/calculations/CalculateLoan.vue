@@ -62,7 +62,6 @@
         </h3>
         <div class="form-control">
           <base-button>Submit</base-button>
-          <base-button mode="outline">Reset</base-button>
         </div>
       </form>
     </base-card>
@@ -70,6 +69,7 @@
   <calculation-user-data
     v-if="doneWithCalculation && !doneWithUserInput"
     @send-data="getData"
+    @close="handleClose"
   ></calculation-user-data>
 </template>
 
@@ -110,6 +110,9 @@ export default {
     clearValidity(input) {
       this[input].isValid = true;
     },
+    handleClose() {
+      alert("You must enter data, or press Send Anonymously button.");
+    },
     validateForm() {
       this.formIsValid = true;
       if (isNaN(this.baseAmount.val) || this.baseAmount.val <= 0) {
@@ -135,7 +138,7 @@ export default {
       }
       this.id = Math.trunc(Math.random() * 1000000);
       this.totalForRepayment = this.baseAmount.val;
-      for (var i = 0; i < this.yearsForPayment; i++) {
+      for (var i = 0; i < this.yearsForPayment.val; i++) {
         this.totalForRepayment *=
           1 + parseFloat(this.yearlyInterestRate.val) / 100;
       }

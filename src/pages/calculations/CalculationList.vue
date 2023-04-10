@@ -1,14 +1,22 @@
 <template>
+  <base-dialog :show="!!error" :showClose="true" title="An error occured!" @close="handleError">
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <calculation-filter @change-filters="changeFilters"></calculation-filter>
   </section>
   <base-card>
     <section>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
+        <base-button mode="outline" @click="loadCalculations"
+          >Refresh</base-button
+        >
         <base-button link to="/calculateloan"
           >Add your own calculation!</base-button
         >
+      </div>
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
       </div>
       <ul v-if="hasCalculations">
         <calculation-item
@@ -42,22 +50,22 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       filters: null,
+      error: null
     };
   },
   computed: {
     filteredCalculations() {
       var allCalculations = this.$store.getters["calculations/calculations"];
-      allCalculations.sort(function(a, b) {
+      allCalculations.sort(function (a, b) {
         return new Date(b.timeOfCalculation) - new Date(a.timeOfCalculation);
       });
       if (this.filters != null) {
         // ammount filter
         if (this.filters.ammount == 1) {
           allCalculations = allCalculations.filter((cal) => {
-            return cal.baseAmount > 0 && cal.baseAmount <= 25000
-              ? true
-              : false;
+            return cal.baseAmount > 0 && cal.baseAmount <= 25000 ? true : false;
           });
         }
         if (this.filters.ammount == 2) {
@@ -76,9 +84,7 @@ export default {
         }
         if (this.filters.ammount == 4) {
           allCalculations = allCalculations.filter((cal) => {
-            return cal.baseAmount > 100000
-              ? true
-              : false;
+            return cal.baseAmount > 100000 ? true : false;
           });
         }
         // time filter
@@ -105,9 +111,7 @@ export default {
         }
         if (this.filters.time == 4) {
           allCalculations = allCalculations.filter((cal) => {
-            return cal.yearsForPayment > 20
-              ? true
-              : false;
+            return cal.yearsForPayment > 20 ? true : false;
           });
         }
         // installments
@@ -127,29 +131,43 @@ export default {
         }
         if (this.filters.installments == 3) {
           allCalculations = allCalculations.filter((cal) => {
-            return cal.monthlyInstallment > 500 && cal.monthlyInstallment <= 1000
+            return cal.monthlyInstallment > 500 &&
+              cal.monthlyInstallment <= 1000
               ? true
               : false;
           });
         }
         if (this.filters.installments == 4) {
           allCalculations = allCalculations.filter((cal) => {
-            return cal.monthlyInstallment > 1000
-              ? true
-              : false;
+            return cal.monthlyInstallment > 1000 ? true : false;
           });
         }
       }
       return allCalculations;
     },
     hasCalculations() {
-      return this.$store.getters["calculations/hasCalculations"];
+      return !this.isLoading && this.$store.getters["calculations/hasCalculations"];
     },
   },
   methods: {
     changeFilters(filterParams) {
       this.filters = filterParams;
     },
+    handleError() {
+      this.error = null
+    },
+    async loadCalculations() {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("calculations/loadCalculations");
+      } catch (error) {
+        this.error = error.message + " in getting calculations." || "Something went wrong!";
+      }
+      this.isLoading = false;
+    },
+  },
+  created() {
+    this.loadCalculations();
   },
 };
 </script>

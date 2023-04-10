@@ -1,6 +1,8 @@
 <template>
   <base-dialog
+    :show="true"
     title="Would you like to add your data to our calculations database?"
+    :showClose="false"
   >
     <template #default>
       <base-card>
@@ -21,7 +23,7 @@
         </p>
       </base-card>
       <form @submit.prevent="submitUserData">
-        <div class="form-control" :class="{invalid: !firstName.isValid}">
+        <div class="form-control" :class="{ invalid: !firstName.isValid }">
           <label for="firstName">First Name:</label>
           <input
             type="text"
@@ -32,7 +34,7 @@
           />
           <p v-if="!firstName.isValid">You must type in your first name!</p>
         </div>
-        <div class="form-control" :class="{invalid: !lastName.isValid}">
+        <div class="form-control" :class="{ invalid: !lastName.isValid }">
           <label for="lastName">Last Name:</label>
           <input
             type="text"
@@ -43,7 +45,7 @@
           />
           <p v-if="!lastName.isValid">You must type in your last name!</p>
         </div>
-        <div class="form-control" :class="{invalid: !email.isValid}">
+        <div class="form-control" :class="{ invalid: !email.isValid }">
           <label for="email">Email address:</label>
           <input
             type="email"
@@ -88,6 +90,7 @@ export default {
       formIsValid: true,
     };
   },
+  emits: ['send-data'],
   methods: {
     clearValidity(input) {
       this[input].isValid = true;

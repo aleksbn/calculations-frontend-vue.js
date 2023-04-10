@@ -1,5 +1,5 @@
 export default {
-  addComment(context, data) {
+  async addComment(context, data) {
     const commData = {
       id: data.id,
       firstName: data.firstName,
@@ -10,6 +10,43 @@ export default {
       timeOfCommenting: data.timeOfCommenting,
     };
 
-    context.commit('addComment', commData);
+    const response = await fetch(
+      "https://calculation-spa-default-rtdb.europe-west1.firebasedatabase.app/comments.json",
+      {
+        method: "POST",
+        body: JSON.stringify(commData),
+      }
+    );
+
+    if (!response.ok) {
+      // error ...
+    }
+
+    context.commit("addComment", commData);
+  },
+
+  async loadComments(context) {
+    const response = await fetch(
+      "https://calculation-spa-default-rtdb.europe-west1.firebasedatabase.app/comments.json"
+    );
+    const responseData = await response.json();
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to load data!");
+      throw error;
+    }
+    const comments = [];
+    for (const key in responseData) {
+      const comment = {
+        id: key,
+        firstName: responseData[key].firstName,
+        lastName: responseData[key].lastName,
+        email: responseData[key].email,
+        commentText: responseData[key].commentText,
+        commentGrade: responseData[key].commentGrade,
+        timeOfCommenting: responseData[key].timeOfCommenting,
+      };
+      comments.push(comment);
+    }
+    context.commit("setComments", comments);
   },
 };
