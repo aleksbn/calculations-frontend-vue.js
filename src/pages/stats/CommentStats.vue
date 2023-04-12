@@ -1,15 +1,17 @@
 <template>
   <section>
     <h2>Comment statistics</h2>
-  </section>
-  <div>
-    <div v-if="!isLoading">
-      <p><b>Average grade: </b><br />{{ averageGrade }}</p>
-      <p><b>Total comments: </b><br />{{ totalComments }}</p>
-      <GChart type="PieChart" :options="options" :data="dataReceived" />
+    <div>
+      <div v-if="isLoading">
+        <p>Statistic is loading...</p>
+      </div>
+      <div v-else>
+        <p><b>Average grade: </b><br />{{ averageGrade }}</p>
+        <p><b>Total comments: </b><br />{{ totalComments }}</p>
+        <GChart type="PieChart" :options="options" :data="dataReceived" />
+      </div>
     </div>
-    <p v-else>Statistic is loading...</p>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -38,7 +40,26 @@ export default {
       return this.data;
     },
     averageGrade() {
-      return this.average;
+      let textAverage = "";
+      switch (Math.round(this.average)) {
+        case 1:
+          textAverage = "One ★";
+          break;
+        case 2:
+          textAverage = "Two ★";
+          break;
+        case 3:
+          textAverage = "Three ★";
+          break;
+        case 4:
+          textAverage = "Four ★";
+          break;
+        case 5:
+          textAverage = "Five - ★";
+          break;
+      }
+      console.log(textAverage);
+      return textAverage + " - " + this.average;
     },
     totalComments() {
       return this.total;
@@ -47,11 +68,11 @@ export default {
   methods: {
     loadStats() {
       const tempStats = JSON.parse(this.$store.getters["comments/getStats"]);
-      this.data.push(["one", tempStats.one]);
-      this.data.push(["two", tempStats.two]);
-      this.data.push(["three", tempStats.three]);
-      this.data.push(["four", tempStats.four]);
-      this.data.push(["five", tempStats.five]);
+      this.data.push(["One - ★", tempStats.one]);
+      this.data.push(["Two - ★★", tempStats.two]);
+      this.data.push(["Three - ★★★", tempStats.three]);
+      this.data.push(["Four - ★★★★", tempStats.four]);
+      this.data.push(["Five - ★★★★★", tempStats.five]);
       this.average = tempStats.average;
       this.total = tempStats.total;
     },
@@ -69,7 +90,7 @@ export default {
     setTimeout(() => {
       this.stats = this.loadStats();
       this.loading = false;
-    }, 1000);
+    }, 500);
   },
 };
 </script>

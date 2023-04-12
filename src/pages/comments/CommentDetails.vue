@@ -1,27 +1,29 @@
 <template>
-  <section>
-    <base-card>
-      <h2>{{ fullName }}</h2>
-      <h3>{{ selectedComment.email }}</h3>
-    </base-card>
-  </section>
-  <section>
-    <base-card>
-      <div>
-        <h3>Opinion:</h3>
-        <p style="text-align: justify">
-          {{ selectedComment.commentText }}
-        </p>
-        <p>
-          Time of commenting: <b>{{ convertedTime }}</b
-          ><br />
-        </p>
-      </div>
-      <div>
-        <base-badge :type="baseGrade" :title="baseTitle"></base-badge>
-      </div>
-    </base-card>
-  </section>
+  <div>
+    <section>
+      <base-card>
+        <h2>{{ fullName }}</h2>
+        <h3>{{ selectedComment.email }}</h3>
+      </base-card>
+    </section>
+    <section>
+      <base-card>
+        <div>
+          <h3>Opinion:</h3>
+          <p style="text-align: justify">
+            {{ selectedComment.commentText }}
+          </p>
+          <p>
+            Time of commenting: <b>{{ convertedTime }}</b
+            ><br />
+          </p>
+        </div>
+        <div>
+          <base-badge :type="baseGrade" :title="baseTitle"></base-badge>
+        </div>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>

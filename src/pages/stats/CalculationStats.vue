@@ -15,7 +15,6 @@
       <p><b>Total length of loan: </b><br />{{ stats.totalLength }} years</p>
       <p><b>Average length of loan: </b><br />{{ stats.averageLength }} years</p>
     </div>
-
   </section>
 </template>
 
@@ -51,7 +50,7 @@ export default {
     setTimeout(() => {
       this.stats = this.loadStats();
       this.loading = false;
-    }, 1000);
+    }, 500);
   },
 };
 </script>

@@ -1,42 +1,49 @@
 <template>
-  <base-dialog :show="!!error" :showClose="true" title="An error occured!" @close="handleError">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <calculation-filter @change-filters="changeFilters"></calculation-filter>
-  </section>
-  <base-card>
+  <div>
+    <base-dialog
+      :show="!!error"
+      :showClose="true"
+      title="An error occured!"
+      @close="handleError"
+    >
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>
-      <div class="controls">
-        <base-button mode="outline" @click="loadCalculations"
-          >Refresh</base-button
-        >
-        <base-button link to="/calculateloan"
-          >Add your own calculation!</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-if="hasCalculations">
-        <calculation-item
-          v-for="calculation in filteredCalculations"
-          :key="calculation.id"
-          :id="calculation.id"
-          :firstName="calculation.firstName"
-          :lastName="calculation.lastName"
-          :email="calculation.email"
-          :baseAmount="calculation.baseAmount"
-          :yearlyInterestRate="calculation.yearlyInterestRate"
-          :yearsForPayment="calculation.yearsForPayment"
-          :totalForRepayment="calculation.totalForRepayment"
-          :monthlyInstallment="calculation.monthlyInstallment"
-          :timeOfCalculation="calculation.timeOfCalculation"
-        ></calculation-item>
-      </ul>
-      <h3 v-else>There are no calculations right now.</h3>
+      <calculation-filter @change-filters="changeFilters"></calculation-filter>
     </section>
-  </base-card>
+    <base-card>
+      <section>
+        <div class="controls">
+          <base-button mode="outline" @click="loadCalculations"
+            >Refresh</base-button
+          >
+          <base-button link to="/calculateloan"
+            >Add your own calculation!</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-if="hasCalculations">
+          <calculation-item
+            v-for="calculation in filteredCalculations"
+            :key="calculation.id"
+            :id="calculation.id"
+            :firstName="calculation.firstName"
+            :lastName="calculation.lastName"
+            :email="calculation.email"
+            :baseAmount="calculation.baseAmount"
+            :yearlyInterestRate="calculation.yearlyInterestRate"
+            :yearsForPayment="calculation.yearsForPayment"
+            :totalForRepayment="calculation.totalForRepayment"
+            :monthlyInstallment="calculation.monthlyInstallment"
+            :timeOfCalculation="calculation.timeOfCalculation"
+          ></calculation-item>
+        </ul>
+        <h3 v-else>There are no calculations right now.</h3>
+      </section>
+    </base-card>
+  </div>
 </template>
 
 <script>
@@ -52,7 +59,7 @@ export default {
     return {
       isLoading: false,
       filters: null,
-      error: null
+      error: null,
     };
   },
   computed: {
@@ -146,7 +153,9 @@ export default {
       return allCalculations;
     },
     hasCalculations() {
-      return !this.isLoading && this.$store.getters["calculations/hasCalculations"];
+      return (
+        !this.isLoading && this.$store.getters["calculations/hasCalculations"]
+      );
     },
   },
   methods: {
@@ -154,14 +163,16 @@ export default {
       this.filters = filterParams;
     },
     handleError() {
-      this.error = null
+      this.error = null;
     },
     async loadCalculations() {
       this.isLoading = true;
       try {
         await this.$store.dispatch("calculations/loadCalculations");
       } catch (error) {
-        this.error = error.message + " in getting calculations." || "Something went wrong!";
+        this.error =
+          error.message + " in getting calculations." ||
+          "Something went wrong!";
       }
       this.isLoading = false;
     },

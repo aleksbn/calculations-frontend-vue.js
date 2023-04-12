@@ -1,76 +1,75 @@
 <template>
-  <section>
-    <h2>Calculate your loan!</h2>
-  </section>
-  <section>
-    <base-card>
-      <form @submit.prevent="submitData">
-        <div
-          class="form-control"
-          :class="{ invalid: !baseAmount.isValid }"
-        >
-          <label for="baseAmount">Base amount:</label>
-          <input
-            type="number"
-            name="baseAmount"
-            id="baseAmount"
-            v-model="baseAmount.val"
-            @blur="clearValidity('baseAmount')"
-          />
-          <p v-if="!this.baseAmount.isValid">
-            Base amount must be a number and greather than 0!
-          </p>
-        </div>
-        <div
-          class="form-control"
-          :class="{ invalid: !yearlyInterestRate.isValid }"
-        >
-          <label for="yearlyInterestRate"
-            >Yearly interest rate (in percentages - i.e. 3.5%):</label
+  <div>
+    <section>
+      <h2>Calculate your loan!</h2>
+    </section>
+    <section>
+      <base-card>
+        <form @submit.prevent="submitData">
+          <div class="form-control" :class="{ invalid: !baseAmount.isValid }">
+            <label for="baseAmount">Base amount:</label>
+            <input
+              type="number"
+              name="baseAmount"
+              id="baseAmount"
+              v-model="baseAmount.val"
+              @blur="clearValidity('baseAmount')"
+            />
+            <p v-if="!this.baseAmount.isValid">
+              Base amount must be a number and greather than 0!
+            </p>
+          </div>
+          <div
+            class="form-control"
+            :class="{ invalid: !yearlyInterestRate.isValid }"
           >
-          <input
-            type="text"
-            name="yearlyInterestRate"
-            id="yearlyInterestRate"
-            v-model="yearlyInterestRate.val"
-            @blur="clearValidity('yearlyInterestRate')"
-          />
-          <p v-if="!this.yearlyInterestRate.isValid">
-            Yearly interest rate must be a number and greather than 0!
-          </p>
-        </div>
-        <div
-          class="form-control"
-          :class="{ invalid: !yearsForPayment.isValid }"
-        >
-          <label for="yearsForPayment"
-            >Years for payment (in real numbers - i.e. 6.5):</label
+            <label for="yearlyInterestRate"
+              >Yearly interest rate (in percentages - i.e. 3.5%):</label
+            >
+            <input
+              type="text"
+              name="yearlyInterestRate"
+              id="yearlyInterestRate"
+              v-model="yearlyInterestRate.val"
+              @blur="clearValidity('yearlyInterestRate')"
+            />
+            <p v-if="!this.yearlyInterestRate.isValid">
+              Yearly interest rate must be a number and greather than 0!
+            </p>
+          </div>
+          <div
+            class="form-control"
+            :class="{ invalid: !yearsForPayment.isValid }"
           >
-          <input
-            type="text"
-            name="yearsForPayment"
-            id="yearsForPayment"
-            v-model="yearsForPayment.val"
-            @blur="clearValidity('yearsForPayment')"
-          />
-          <p v-if="!this.yearsForPayment.isValid">
-            Years for payment must be a number and greather than 0!
-          </p>
-        </div>
-        <h3 v-if="!formIsValid">
-          Please, fix the above errors before submiting the form.
-        </h3>
-        <div class="form-control">
-          <base-button>Submit</base-button>
-        </div>
-      </form>
-    </base-card>
-  </section>
-  <calculation-user-data
-    v-if="doneWithCalculation && !doneWithUserInput"
-    @send-data="getData"
-    @close="handleClose"
-  ></calculation-user-data>
+            <label for="yearsForPayment"
+              >Years for payment (in real numbers - i.e. 6.5):</label
+            >
+            <input
+              type="text"
+              name="yearsForPayment"
+              id="yearsForPayment"
+              v-model="yearsForPayment.val"
+              @blur="clearValidity('yearsForPayment')"
+            />
+            <p v-if="!this.yearsForPayment.isValid">
+              Years for payment must be a number and greather than 0!
+            </p>
+          </div>
+          <h3 v-if="!formIsValid">
+            Please, fix the above errors before submiting the form.
+          </h3>
+          <div class="form-control">
+            <base-button>Submit</base-button>
+          </div>
+        </form>
+      </base-card>
+    </section>
+    <calculation-user-data
+      v-if="doneWithCalculation && !doneWithUserInput"
+      @send-data="getData"
+      @close="handleClose"
+    ></calculation-user-data>
+  </div>
 </template>
 
 <script>

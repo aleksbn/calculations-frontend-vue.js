@@ -1,79 +1,84 @@
 <template>
-  <section>
-    <h2 style="text-align: center">Make a comment!</h2>
-  </section>
-  <section>
-    <base-card>
-      <form @submit.prevent="sendData" :class="{ invalid: !firstName.isValid }">
-        <div class="form-control">
-          <label for="firstName">First name</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            v-model="firstName.val"
-            @blur="clearValidity('firstName')"
-          />
-          <p v-if="!this.firstName.isValid">You must enter first name!</p>
-        </div>
-        <div class="form-control" :class="{ invalid: !lastName.isValid }">
-          <label for="lastName">Last name</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            v-model="lastName.val"
-            @blur="clearValidity('lastName')"
-          />
-          <p v-if="!this.lastName.isValid">You must enter last name!</p>
-        </div>
-        <div class="form-control" :class="{ invalid: !email.isValid }">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            v-model="email.val"
-            @blur="clearValidity('email')"
-          />
-          <p v-if="!this.email.isValid">You must enter email!</p>
-        </div>
-        <div class="form-control" :class="{ invalid: !commentText.isValid }">
-          <label for="commentText">Text of your comment</label>
-          <textarea
-            id="commentText"
-            name="commentText"
-            rows="8"
-            v-model="commentText.val"
-            @blur="clearValidity('commentText')"
-          ></textarea>
-          <p v-if="!this.commentText.isValid">You must enter your comment!</p>
-        </div>
-        <div class="form-control">
-          <label for="commentGrade">Your grade</label>
-          <select
-            name="commentGrade"
-            id="commentGrade"
-            @change="onChange($event)"
-          >
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <br />
-          <br />
-        </div>
-        <div class="form-control" style="text-align: center">
-          <base-button @click="submitAnon">Submit anonymously</base-button>
-          <base-button @click="submitWithData" mode="outline"
-            >Submit with data</base-button
-          >
-        </div>
-      </form>
-    </base-card>
-  </section>
+  <div>
+    <section>
+      <h2 style="text-align: center">Make a comment!</h2>
+    </section>
+    <section>
+      <base-card>
+        <form
+          @submit.prevent="sendData"
+          :class="{ invalid: !firstName.isValid }"
+        >
+          <div class="form-control">
+            <label for="firstName">First name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              v-model="firstName.val"
+              @blur="clearValidity('firstName')"
+            />
+            <p v-if="!this.firstName.isValid">You must enter first name!</p>
+          </div>
+          <div class="form-control" :class="{ invalid: !lastName.isValid }">
+            <label for="lastName">Last name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              v-model="lastName.val"
+              @blur="clearValidity('lastName')"
+            />
+            <p v-if="!this.lastName.isValid">You must enter last name!</p>
+          </div>
+          <div class="form-control" :class="{ invalid: !email.isValid }">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              v-model="email.val"
+              @blur="clearValidity('email')"
+            />
+            <p v-if="!this.email.isValid">You must enter email!</p>
+          </div>
+          <div class="form-control" :class="{ invalid: !commentText.isValid }">
+            <label for="commentText">Text of your comment</label>
+            <textarea
+              id="commentText"
+              name="commentText"
+              rows="8"
+              v-model="commentText.val"
+              @blur="clearValidity('commentText')"
+            ></textarea>
+            <p v-if="!this.commentText.isValid">You must enter your comment!</p>
+          </div>
+          <div class="form-control">
+            <label for="commentGrade">Your grade</label>
+            <select
+              name="commentGrade"
+              id="commentGrade"
+              @change="onChange($event)"
+            >
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <br />
+            <br />
+          </div>
+          <div class="form-control" style="text-align: center">
+            <base-button @click="submitAnon">Submit anonymously</base-button>
+            <base-button @click="submitWithData" mode="outline"
+              >Submit with data</base-button
+            >
+          </div>
+        </form>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
