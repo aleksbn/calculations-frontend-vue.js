@@ -5,6 +5,7 @@
       <ul>
         <li><router-link to="/allcalculations">Calculations</router-link></li>
         <li><router-link to="/allcomments">Comments</router-link></li>
+        <li><router-link to="/allstats">All stats</router-link></li>
       </ul>
     </nav>
   </header>

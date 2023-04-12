@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import CommentStats from "./pages/comments/CommentStats.vue";
+import AllStats from "./pages/stats/AllStats.vue";
+import CalculationStats from "./pages/stats/CalculationStats.vue";
+import CommentStats from "./pages/stats/CommentStats.vue";
 import CommentList from "./pages/comments/CommentList.vue";
 import AddComment from "./pages/comments/AddComment.vue";
 import CommentDetails from "./pages/comments/CommentDetails.vue";
@@ -18,7 +20,14 @@ const router = createRouter({
     { path: "/addcomment", component: AddComment },
     { path: "/allcomments", component: CommentList },
     { path: "/allcomments/:id", component: CommentDetails, props: true },
-    { path: "/commentstats", component: CommentStats },
+    {
+      path: "/allstats",
+      component: AllStats,
+      children: [
+        { path: "comments", component: CommentStats },
+        { path: "calculations", component: CalculationStats },
+      ],
+    },
     { path: "/:notFound(.*)", component: NotFound },
   ],
 });
