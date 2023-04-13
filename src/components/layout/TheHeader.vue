@@ -5,11 +5,36 @@
       <ul>
         <li><router-link to="/allcalculations">Calculations</router-link></li>
         <li><router-link to="/allcomments">Comments</router-link></li>
-        <li><router-link to="/allstats">All stats</router-link></li>
+        <li v-if="isLoggedIn">
+          <router-link to="/allstats">All stats</router-link>
+        </li>
+        <li v-if="!isLoggedIn">
+          <router-link to="/auth">Login/Signup</router-link>
+        </li>
+        <li v-if="isLoggedIn">
+          <base-button link @click="logout">Logout</base-button>
+        </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.replace('/auth');
+
+    },
+  },
+};
+</script>
 
 <style>
 header {

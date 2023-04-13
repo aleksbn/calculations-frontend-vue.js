@@ -13,6 +13,21 @@ import TheHeader from './components/layout/TheHeader.vue';
 export default {
   components: {
     TheHeader
+  },
+  created() {
+    this.$store.dispatch('auth/tryLogin');
+  },
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters['auth/didAutoLogout'];
+    }
+  },
+  watch: {
+    didAutoLogout(curValue, oldValue) {
+      if(curValue && curValue !== oldValue) {
+        this.$router.replace('/auth');
+      }
+    }
   }
 }
 </script>

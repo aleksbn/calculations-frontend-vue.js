@@ -7,7 +7,7 @@
       <base-button link :to="commentLink" @click="clicked">
         Comments
       </base-button>
-      <base-button link :to="calcLink">Calculations </base-button>
+      <base-button link :to="calcLink" @click="clicked">Calculations </base-button>
     </base-card>
     <base-card v-if="isClicked">
       <router-view v-slot="slotProps">

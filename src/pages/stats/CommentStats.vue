@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Comment statistics</h2>
+    <h2>Comment statistics:</h2>
     <div>
       <div v-if="isLoading">
         <p>Statistic is loading...</p>
@@ -58,7 +58,6 @@ export default {
           textAverage = "Five - ★";
           break;
       }
-      console.log(textAverage);
       return textAverage + " - " + this.average;
     },
     totalComments() {

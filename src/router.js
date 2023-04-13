@@ -9,6 +9,9 @@ import CommentDetails from "./pages/comments/CommentDetails.vue";
 import NotFound from "./pages/NotFound.vue";
 import CalculateLoan from "./pages/calculations/CalculateLoan.vue";
 import CalculationList from "./pages/calculations/CalculationList.vue";
+import UserAuth from "./pages/auth/UserAuth.vue";
+
+import store from "./store/index.js";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,10 +22,14 @@ const router = createRouter({
     { path: "/allcalculations", component: CalculationList },
     { path: "/addcomment", component: AddComment },
     { path: "/allcomments", component: CommentList },
+    { path: "/auth", component: UserAuth, meta: { requiresUnauth: true } },
     { path: "/allcomments/:id", component: CommentDetails, props: true },
     {
       path: "/allstats",
       component: AllStats,
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         { path: "comments", component: CommentStats },
         { path: "calculations", component: CalculationStats },
@@ -30,6 +37,16 @@ const router = createRouter({
     },
     { path: "/:notFound(.*)", component: NotFound },
   ],
+});
+
+router.beforeEach(function (to, _, next) {
+  if(to.meta.requiresAuth && !store.getters['auth/isAuthenticated']) {
+    next('/auth');
+  } else if(to.meta.requiresUnauth && store.getters['auth/isAuthenticated']) {
+    next('/allcalculations');
+  } else {
+    next();
+  }
 });
 
 export default router;
