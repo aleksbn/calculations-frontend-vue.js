@@ -26,7 +26,7 @@ export default {
       body: JSON.stringify({
         email: payload.email,
         password: payload.password,
-        retursSecureToken: true,
+        returnSecureToken: true,
       }),
     });
     const responseData = await response.json();
