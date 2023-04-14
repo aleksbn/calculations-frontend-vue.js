@@ -21,6 +21,10 @@
         <div>
           <base-badge :type="baseGrade" :title="baseTitle"></base-badge>
         </div>
+        <br>
+        <div>
+          <base-button @click="goBack()">Go back</base-button>
+        </div>
       </base-card>
     </section>
   </div>
@@ -29,6 +33,11 @@
 <script>
 export default {
   props: ["id"],
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    }
+  },
   data() {
     return {
       selectedComment: null,

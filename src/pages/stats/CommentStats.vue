@@ -5,7 +5,7 @@
       <div v-if="isLoading">
         <p>Statistic is loading...</p>
       </div>
-      <div v-else>
+      <div id="chart" v-else>
         <p><b>Average grade: </b><br />{{ averageGrade }}</p>
         <p><b>Total comments: </b><br />{{ totalComments }}</p>
         <GChart type="PieChart" :options="options" :data="dataReceived" />
@@ -26,7 +26,7 @@ export default {
       total: 0,
       data: [["Star ranking", "Number of stars"]],
       options: {
-        width: 1100,
+        width: window.screen.width * 0.5,
         height: 400,
         colors: ["black", "red", "yellow", "blue", "green"],
       },
@@ -43,19 +43,19 @@ export default {
       let textAverage = "";
       switch (Math.round(this.average)) {
         case 1:
-          textAverage = "One ★";
+          textAverage = "★";
           break;
         case 2:
-          textAverage = "Two ★";
+          textAverage = "★★";
           break;
         case 3:
-          textAverage = "Three ★";
+          textAverage = "★★★";
           break;
         case 4:
-          textAverage = "Four ★";
+          textAverage = "★★★★";
           break;
         case 5:
-          textAverage = "Five - ★";
+          textAverage = "★★★★★";
           break;
       }
       return textAverage + " - " + this.average;

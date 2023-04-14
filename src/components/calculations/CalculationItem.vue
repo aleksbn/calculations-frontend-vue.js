@@ -6,7 +6,7 @@
     <h4>{{ email }}</h4>
     <div>
       Base amount: <b>{{ baseAmount }} $</b><br />
-      Yearly interest rate: <b>{{ percentage }} % </b><br />
+      Annual interest rate: <b>{{ percentage }} % </b><br />
       Years for Payment: <b>{{ yearsForPayment }} years - {{ months }} months</b><br />
       Total: <b>{{ totalForRepayment }} $</b
       ><br />

@@ -8,7 +8,12 @@
     >
       <p>{{ error }}</p></base-dialog
     >
-    <base-dialog :show="isLoading" fixed title="Authenticating..." :showClose="false">
+    <base-dialog
+      :show="isLoading"
+      fixed
+      title="Authenticating..."
+      :showClose="false"
+    >
       <base-spinner></base-spinner>
     </base-dialog>
     <base-card>
@@ -17,13 +22,25 @@
           <label for="email">E-mail</label>
           <input type="email" id="email" v-model.trim="email" />
         </div>
+        <div class="form-control hidden" id="emailDiv">
+          <label for="emailconfirm">E-mail confirmation</label>
+          <input type="email" id="emailconfirm" v-model.trim="emailconfirm" />
+        </div>
         <div class="form-control">
           <label for="password">Password</label>
           <input type="password" id="password" v-model.trim="password" />
         </div>
+        <div class="form-control hidden" id="passDiv">
+          <label for="passwordconfirm">Password confirmation</label>
+          <input
+            type="password"
+            id="passwordconfirm"
+            v-model.trim="passwordconfirm"
+          />
+        </div>
         <p v-if="!formIsValid">
-          Please, enter a valid email and password (most be at least 6
-          characters long).
+          Please, enter a valid email and password (must be at least 6
+          characters long). <span v-if="mode==='signup'">Confirmation fields must match the original ones too.</span>
         </p>
         <base-button>{{ submitButtonCaption }}</base-button>
         <base-button type="button" mode="flat" @click="switchAuthMode">{{
@@ -39,7 +56,9 @@ export default {
   data() {
     return {
       email: "",
+      emailconfirm: "",
       password: "",
+      passwordconfirm: "",
       formIsValid: true,
       mode: "login",
       isLoading: false,
@@ -63,16 +82,29 @@ export default {
     },
   },
   methods: {
-    handleError() {
-      this.error = null;
-    },
-    async submit() {
-      this.formIsValid = true;
+    formValidation() {
       if (
         this.email === "" ||
         !this.email.includes("@") ||
         this.password.length < 6
       ) {
+        return false;
+      }
+      if (
+        this.mode === "signup" &&
+        (this.email !== this.emailconfirm ||
+          this.password !== this.passwordconfirm)
+      ) {
+        return false;
+      }
+      return true;
+    },
+    handleError() {
+      this.error = null;
+    },
+    async submit() {
+      this.formIsValid = true;
+      if (this.formValidation() !== true) {
         this.formIsValid = false;
         return;
       }
@@ -87,7 +119,7 @@ export default {
         } else {
           await this.$store.dispatch("auth/signup", actionPayload);
         }
-        this.$router.replace('/calculateloan');
+        this.$router.replace("/calculateloan");
       } catch (error) {
         this.error =
           error.message || "Failed to authenticate. Check your data!";
@@ -95,10 +127,20 @@ export default {
       this.isLoading = false;
     },
     switchAuthMode() {
+      var emailDiv = document.getElementById("emailDiv");
+      var passDiv = document.getElementById("passDiv");
+      emailDiv.classList.toggle("hidden");
+      passDiv.classList.toggle("hidden");
       if (this.mode === "login") {
         this.mode = "signup";
       } else {
         this.mode = "login";
+      }
+      if(!emailDiv.classList.contains('hidden')) {
+        emailDiv.style.opacity = 1;
+      }
+      if(!passDiv.classList.contains('hidden')) {
+        passDiv.style.opacity = 1;
       }
     },
   },
@@ -106,6 +148,9 @@ export default {
 </script>
 
 <style scoped>
+.hidden {
+  display: none;
+}
 .form-control {
   margin: 0.5rem 0;
 }

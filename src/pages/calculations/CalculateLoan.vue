@@ -24,7 +24,7 @@
             :class="{ invalid: !yearlyInterestRate.isValid }"
           >
             <label for="yearlyInterestRate"
-              >Yearly interest rate (in percentages - i.e. 3.5%):</label
+              >Annual interest rate (in percentages - i.e. 3.5%):</label
             >
             <input
               type="text"

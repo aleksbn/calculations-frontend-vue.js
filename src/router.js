@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import AboutUs from "./pages/AboutUs.vue";
 import AllStats from "./pages/stats/AllStats.vue";
 import CalculationStats from "./pages/stats/CalculationStats.vue";
 import CommentStats from "./pages/stats/CommentStats.vue";
@@ -17,7 +18,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     //Nismo upotrijebili nested routes
-    { path: "/", redirect: "/calculateloan" },
+    { path: "/", redirect: "/about" },
+    { path: "/about", component: AboutUs },
     { path: "/calculateloan", component: CalculateLoan },
     { path: "/allcalculations", component: CalculationList },
     { path: "/addcomment", component: AddComment },

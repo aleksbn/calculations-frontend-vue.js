@@ -1,9 +1,10 @@
 <template>
   <header>
     <nav>
-      <h1><router-link to="/">Calculate your loan!</router-link></h1>
+      <h1><router-link to="/calculateloan">Calculate loan!</router-link></h1>
       <ul>
         <li><router-link to="/allcalculations">Calculations</router-link></li>
+        <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/allcomments">Comments</router-link></li>
         <li v-if="isLoggedIn">
           <router-link to="/allstats">All stats</router-link>

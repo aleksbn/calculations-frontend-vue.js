@@ -8,20 +8,20 @@
       <div v-else>
         <p><b>Total calculations: </b><br />{{ stats.totalCalculations }}</p>
         <p><b>Total base amount: </b><br />{{ stats.totalBaseAmount }} $</p>
-        <p><b>Average base amount: </b><br />{{ stats.averageBaseAmount }} $</p>
+        <p><b>Average base amount: </b><br />{{ stats.averageBaseAmount.toFixed(2) }} $</p>
         <p>
-          <b>Total amount to be repayed: </b><br />{{ stats.totalAmount }} $
+          <b>Total amount to be repayed: </b><br />{{ stats.totalAmount.toFixed(2) }} $
         </p>
         <p>
-          <b>Average amount to be repayed: </b><br />{{ stats.averageAmount }} $
+          <b>Average amount to be repayed: </b><br />{{ stats.averageAmount.toFixed(2) }} $
         </p>
-        <p><b>Total installments: </b><br />{{ stats.totalInstallment }} $</p>
+        <p><b>Total installments: </b><br />{{ stats.totalInstallment.toFixed(2) }} $</p>
         <p>
-          <b>Average installments: </b><br />{{ stats.averageInstallment }} $
+          <b>Average installments: </b><br />{{ stats.averageInstallment.toFixed(2) }} $
         </p>
         <p><b>Total length of loan: </b><br />{{ stats.totalLength }} years</p>
         <p>
-          <b>Average length of loan: </b><br />{{ stats.averageLength }} years
+          <b>Average length of loan: </b><br />{{ stats.averageLength.toFixed(2) }} years
         </p>
       </div>
     </div>
