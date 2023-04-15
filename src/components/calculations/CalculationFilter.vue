@@ -60,7 +60,8 @@ select {
   border-radius: 15px;
   padding: 8px;
   margin: 5px;
-  width: 150px;
+  width: 200px;
+  display: inline;
 }
 
 select option {
