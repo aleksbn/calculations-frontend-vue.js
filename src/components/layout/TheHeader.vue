@@ -56,6 +56,7 @@ header a {
   color: #f391e3;
   display: inline-block;
   padding: 0.75rem 1.5rem;
+  font-weight: bold;
   border: 1px solid transparent;
 }
 
@@ -63,6 +64,7 @@ a:active,
 a:hover,
 a.router-link-active {
   color: red;
+  font-weight: bold;
 }
 
 h1 {
@@ -126,7 +128,7 @@ body {
   background: linear-gradient(to left, #f46b45, #eea849);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #fff;
-  height: 50px;
+  height: 60px;
   padding: 1em;
 }
 
@@ -216,8 +218,9 @@ body {
   }
   #menu-toggle:checked ~ .menu li {
     border: 1px solid #333;
-    height: 2.5em;
-    padding: 0.5em;
+    vertical-align: middle;
+    height: 3em;
+    padding: 0em;
     transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   .menu > li {
