@@ -38,7 +38,7 @@
             v-model.trim="passwordconfirm"
           />
         </div>
-        <p v-if="!formIsValid">
+        <p v-if="!formIsValid" id="errorParagraph">
           Please, enter a valid email and password (must be at least 6
           characters long). <span v-if="mode==='signup'">Confirmation fields must match the original ones too.</span>
         </p>
@@ -142,6 +142,7 @@ export default {
       if(!passDiv.classList.contains('hidden')) {
         passDiv.style.opacity = 1;
       }
+      this.formIsValid = true;
     },
   },
 };
@@ -191,5 +192,13 @@ input:focus {
 
 .invalid input {
   border: 1px solid red;
+}
+
+#errorParagraph{
+  border: 2px solid red;
+  font-weight: bold;
+  color: red;
+  padding: 25px;
+  border-radius: 15px;
 }
 </style>
