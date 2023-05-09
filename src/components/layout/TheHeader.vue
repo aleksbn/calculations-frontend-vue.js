@@ -8,8 +8,8 @@
         <div class="menu-button"></div>
       </label>
       <ul class="menu">
-        <li><router-link to="/allcalculations">Calculations</router-link></li>
         <li><router-link to="/about">About</router-link></li>
+        <li><router-link to="/allcalculations">Calculations</router-link></li>
         <li><router-link to="/allcomments">Comments</router-link></li>
         <li v-if="isLoggedIn">
           <router-link to="/allstats">All stats</router-link>
