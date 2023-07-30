@@ -32,6 +32,16 @@ export default {
       return this.$store.getters["auth/isAuthenticated"];
     },
   },
+  mounted() {
+    const menuToggleCheckbox = document.getElementById('menu-toggle');
+
+    const menuItems = document.querySelectorAll('.menu li');
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        menuToggleCheckbox.checked = false;
+      });
+    });
+  },
   methods: {
     logout() {
       this.$store.dispatch("auth/logout");
