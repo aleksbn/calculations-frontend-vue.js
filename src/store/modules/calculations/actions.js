@@ -43,7 +43,7 @@ export default {
     const calculations = [];
     for (const key in responseData) {
       const cal = {
-        id: key,
+        id: responseData[key].id,
         firstName: responseData[key].firstName,
         lastName: responseData[key].lastName,
         email: responseData[key].email,

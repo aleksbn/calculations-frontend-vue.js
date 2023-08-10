@@ -147,6 +147,10 @@ export default {
       this.monthlyInstallment = this.monthlyInstallment.toFixed(2);
       this.timeOfCalculation = new Date();
       this.doneWithCalculation = true;
+      let addedByUser = JSON.parse(localStorage.getItem('addedByUser') || '[]');
+      console.log(addedByUser);
+      addedByUser.push({id: this.id, date: this.timeOfCalculation});
+      localStorage.setItem('addedByUser', JSON.stringify(addedByUser));
     },
     getData($event) {
       this.doneWithUserInput = true;

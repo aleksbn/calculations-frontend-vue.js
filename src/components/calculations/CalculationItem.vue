@@ -8,12 +8,9 @@
       Base amount: <b>{{ baseAmount }} $</b><br />
       Annual interest rate: <b>{{ percentage }} % </b><br />
       Years for Payment: <b>{{ yearsForPayment }} years - {{ months }} months</b><br />
-      Total: <b>{{ totalForRepayment }} $</b
-      ><br />
-      Montly installments: <b>{{ monthlyInstallment }} $</b
-      ><br />
-      Time of calculation: <b>{{ convertedTime }}</b
-      ><br />
+      Total: <b>{{ totalForRepayment }} $</b><br />
+      Montly installments: <b>{{ monthlyInstallment }} $</b><br />
+      Time of calculation: <b>{{ convertedTime }}</b><br />
     </div>
   </li>
 </template>
@@ -41,16 +38,19 @@ export default {
       return perc.toFixed(2);
     },
     months() {
-        return this.yearsForPayment * 12
+      return this.yearsForPayment * 12
     },
     convertedTime() {
       return new Date(this.timeOfCalculation).toDateString();
     },
     isRecent() {
-      return new Date(this.timeOfCalculation).toLocaleDateString() === new Date().toLocaleDateString() ? "recent" : "";
-    }
-  },
-};
+      const currentDate = new Date().toLocaleDateString();
+      const addedByUser = JSON.parse(localStorage.getItem('addedByUser'));
+      console.log(this.id);
+      return addedByUser.some(calculation => calculation.id === this.id && new Date(calculation.date).toLocaleDateString() === currentDate) ? 'recent' : '';
+    },
+  }
+}
 </script>
 
 <style scoped>
@@ -79,7 +79,7 @@ div {
   justify-content: flex-end;
 }
 
-.recent{
+.recent {
   background-color: cyan;
 }
 </style>
