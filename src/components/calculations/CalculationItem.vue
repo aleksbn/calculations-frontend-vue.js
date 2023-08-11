@@ -31,7 +31,7 @@ export default {
   ],
   computed: {
     fullName() {
-      return this.firstName + " " + this.lastName;
+      return `${this.firstName} ${this.lastName}`;
     },
     percentage() {
       const perc = this.yearlyInterestRate * 100;

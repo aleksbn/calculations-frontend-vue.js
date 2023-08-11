@@ -113,7 +113,7 @@ export default {
         await this.$store.dispatch("calculations/loadCalculations");
       } catch (error) {
         this.error =
-          error.message + " in getting calculations." ||
+          `${error.message} in getting calculations.` ||
           "Something went wrong!";
       }
       this.isLoading = false;

@@ -6,7 +6,7 @@ export default {
     return state.calculations && state.calculations.length > 0;
   },
   getStats(state) {
-    var toReturn = {
+    const toReturn = {
       totalCalculations: 0,
       totalBaseAmount: 0,
       averageBaseAmount: 0,
@@ -18,19 +18,10 @@ export default {
       averageLength: 0,
     };
     toReturn.totalCalculations = state.calculations.length;
-    for (let index in state.calculations) {
-      toReturn.totalBaseAmount += +state.calculations[index].baseAmount;
-    }
-    for (let index in state.calculations) {
-      toReturn.totalAmount += +state.calculations[index].totalForRepayment;
-    }
-    for (let index in state.calculations) {
-      toReturn.totalInstallment +=
-      +state.calculations[index].monthlyInstallment;
-    }
-    for (let index in state.calculations) {
-      toReturn.totalLength += +state.calculations[index].yearsForPayment;
-    }
+    toReturn.totalBaseAmount = state.calculations.map(c => +c.baseAmount).reduce((acc, inc) => acc + inc);
+    toReturn.totalAmount = state.calculations.map(c => +c.totalForRepayment).reduce((acc, inc) => acc + inc);
+    toReturn.totalInstallment = state.calculations.map(c => +c.monthlyInstallment).reduce((acc, inc) => acc + inc);
+    toReturn.totalLength = state.calculations.map(c => +c.yearsForPayment).reduce((acc, inc) => acc + inc);
     toReturn.averageBaseAmount =
       toReturn.totalBaseAmount / toReturn.totalCalculations;
     toReturn.averageAmount = toReturn.totalAmount / toReturn.totalCalculations;

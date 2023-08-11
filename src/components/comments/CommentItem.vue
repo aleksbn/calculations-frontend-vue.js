@@ -8,9 +8,8 @@
       <b style="cursor: pointer" v-if="isTextShort" @click="toggleText(false)">{{ commentText }}</b>
       <b class="displayTextClass" v-else @click="toggleText(true)">{{
         hiddenCommentText
-      }}</b><br />
-      <!--       Time of commenting: <b>{{ convertedTime }}</b
-      ><br /> -->
+      }}</b><br /><br />
+      Time of commenting: <b>{{ convertedTime }}</b><br /><br />
     </div>
     <div>
       <base-badge :type="baseGrade" :title="baseTitle"></base-badge>

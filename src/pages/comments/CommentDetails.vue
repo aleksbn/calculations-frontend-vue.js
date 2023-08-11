@@ -51,7 +51,7 @@ export default {
   computed: {
     fullName() {
       return (
-        this.selectedComment.firstName + " " + this.selectedComment.lastName
+        `${this.selectedComment.firstName} ${this.selectedComment.lastName}`
       );
     },
     convertedTime() {

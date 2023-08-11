@@ -87,7 +87,7 @@ export default {
         await this.$store.dispatch("comments/loadComments");
       } catch (error) {
         this.error =
-          error.message + " in getting comments." || "Something went wrong";
+          `${error.message} in getting comments.` || "Something went wrong";
       }
       this.isLoading = false;
     },
