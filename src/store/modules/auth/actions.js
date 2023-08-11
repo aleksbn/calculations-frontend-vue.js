@@ -1,26 +1,12 @@
 let timer;
 
 export default {
-  async login(context, payload) {
-    return context.dispatch("auth", {
-      ...payload,
-      mode: "login",
-    });
-  },
-  async signup(context, payload) {
-    return context.dispatch("auth", {
-      ...payload,
-      mode: "signup",
-    });
-  },
   async auth(context, payload) {
-    const mode = payload.mode;
     let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk";
-    if (mode === "signup") {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk";
-    }
+      payload.mode === "signup"
+        ? "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk"
+        : "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk";
+    console.log(payload);
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -58,12 +44,12 @@ export default {
 
     const expiresIn = +tokenExpiration - new Date().getTime();
 
-    if(expiresIn < 10000) {
+    if (expiresIn < 10000) {
       return;
     }
 
-    timer = setTimeout(function() {
-      context.dispatch('autoLogout');
+    timer = setTimeout(function () {
+      context.dispatch("autoLogout");
     }, expiresIn);
 
     if (token && userId) {
@@ -85,7 +71,7 @@ export default {
   },
 
   autoLogout(context) {
-    context.dispatch('logout');
-    context.commit('setAutoLogout');
-  }
+    context.dispatch("logout");
+    context.commit("setAutoLogout");
+  },
 };

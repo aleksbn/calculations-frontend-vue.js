@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     filter(event) {
-      this.selected = event.target.value;
+      this.selected = +event.target.value;
       this.$emit("change-filter", this.selected);
     },
   },

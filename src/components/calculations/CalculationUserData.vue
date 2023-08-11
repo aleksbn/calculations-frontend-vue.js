@@ -1,9 +1,5 @@
 <template>
-  <base-dialog
-    :show="true"
-    title="Would you like to add your data to our calculations database?"
-    :showClose="false"
-  >
+  <base-dialog :show="true" title="Would you like to add your data to our calculations database?" :showClose="false">
     <template #default>
       <base-card>
         <p style="text-align: justify">
@@ -25,35 +21,19 @@
       <form @submit.prevent="submitUserData">
         <div class="form-control" :class="{ invalid: !firstName.isValid }">
           <label for="firstName">First Name:</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            v-model.trim="firstName.val"
-            @blur="clearValidity('firstName')"
-          />
+          <input type="text" name="firstName" id="firstName" v-model.trim="firstName.val"
+            @blur="clearValidity('firstName')" />
           <p v-if="!firstName.isValid">You must type in your first name!</p>
         </div>
         <div class="form-control" :class="{ invalid: !lastName.isValid }">
           <label for="lastName">Last Name:</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            v-model.trim="lastName.val"
-            @blur="clearValidity('lastName')"
-          />
+          <input type="text" name="lastName" id="lastName" v-model.trim="lastName.val"
+            @blur="clearValidity('lastName')" />
           <p v-if="!lastName.isValid">You must type in your last name!</p>
         </div>
         <div class="form-control" :class="{ invalid: !email.isValid }">
           <label for="email">Email address:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            v-model.trim="email.val"
-            @blur="clearValidity('email')"
-          />
+          <input type="email" name="email" id="email" v-model.trim="email.val" @blur="clearValidity('email')" />
           <p v-if="!email.isValid">You must type in your email!</p>
         </div>
         <h3 v-if="!this.formIsValid">
@@ -62,9 +42,7 @@
         </h3>
         <div class="form-control">
           <base-button @click="sendAnon">Send anonymously</base-button>
-          <base-button @click="sendWithData" mode="outline"
-            >Send with user data</base-button
-          >
+          <base-button @click="sendWithData" mode="outline">Send with user data</base-button>
         </div>
       </form>
     </template>
@@ -110,28 +88,28 @@ export default {
         this.formIsValid = false;
       }
     },
-    sendAnon() {
-      this.firstName.val = "Anonymous";
-      this.lastName.val = "Anonymous";
-      this.email.val = "anon@madeup.net";
+    getObject(typeOfCalculation) {
       const obj = {
         firstName: this.firstName.val,
         lastName: this.lastName.val,
         email: this.email.val,
       };
-      this.$emit("send-data", obj);
+      if (typeOfCalculation === "anon") {
+        obj.firstName = "Anonymous";
+        obj.lastName = "Anonymous";
+        obj.email = "anon@madeup.net";
+      }
+      return obj;
+    },
+    sendAnon() {
+      this.$emit("send-data", this.getObject("anon"));
     },
     sendWithData() {
       this.validateForm();
       if (!this.formIsValid) {
         return;
       }
-      const obj = {
-        firstName: this.firstName.val,
-        lastName: this.lastName.val,
-        email: this.email.val,
-      };
-      this.$emit("send-data", obj);
+      this.$emit("send-data", this.getObject("withData"));
     },
   },
 };

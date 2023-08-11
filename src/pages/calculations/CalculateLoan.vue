@@ -137,7 +137,7 @@ export default {
       }
       this.id = Math.trunc(Math.random() * 1000000);
       this.totalForRepayment = this.baseAmount.val;
-      for (var i = 0; i < this.yearsForPayment.val; i++) {
+      for (let i = 0; i < this.yearsForPayment.val; i++) {
         this.totalForRepayment *=
           1 + parseFloat(this.yearlyInterestRate.val) / 100;
       }
@@ -148,7 +148,6 @@ export default {
       this.timeOfCalculation = new Date();
       this.doneWithCalculation = true;
       let addedByUser = JSON.parse(localStorage.getItem('addedByUser') || '[]');
-      console.log(addedByUser);
       addedByUser.push({id: this.id, date: this.timeOfCalculation});
       localStorage.setItem('addedByUser', JSON.stringify(addedByUser));
     },

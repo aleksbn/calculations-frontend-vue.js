@@ -3,63 +3,37 @@
     <section>
       <h2 style="text-align: center">Make a comment!</h2>
     </section>
+    <base-dialog :show="!!error" :showClose="true" title="An error occured!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>
       <base-card>
-        <form
-          @submit.prevent="sendData"
-          :class="{ invalid: !firstName.isValid }"
-        >
+        <form @submit.prevent="sendData" :class="{ invalid: !firstName.isValid }">
           <div class="form-control">
             <label for="firstName">First name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              v-model="firstName.val"
-              @blur="clearValidity('firstName')"
-            />
+            <input type="text" id="firstName" name="firstName" v-model="firstName.val"
+              @blur="clearValidity('firstName')" />
             <p v-if="!this.firstName.isValid">You must enter first name!</p>
           </div>
           <div class="form-control" :class="{ invalid: !lastName.isValid }">
             <label for="lastName">Last name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              v-model="lastName.val"
-              @blur="clearValidity('lastName')"
-            />
+            <input type="text" id="lastName" name="lastName" v-model="lastName.val" @blur="clearValidity('lastName')" />
             <p v-if="!this.lastName.isValid">You must enter last name!</p>
           </div>
           <div class="form-control" :class="{ invalid: !email.isValid }">
             <label for="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              v-model="email.val"
-              @blur="clearValidity('email')"
-            />
+            <input type="text" id="email" name="email" v-model="email.val" @blur="clearValidity('email')" />
             <p v-if="!this.email.isValid">You must enter email!</p>
           </div>
           <div class="form-control" :class="{ invalid: !commentText.isValid }">
             <label for="commentText">Text of your comment</label>
-            <textarea
-              id="commentText"
-              name="commentText"
-              rows="8"
-              v-model="commentText.val"
-              @blur="clearValidity('commentText')"
-            ></textarea>
+            <textarea id="commentText" name="commentText" rows="8" v-model="commentText.val"
+              @blur="clearValidity('commentText')"></textarea>
             <p v-if="!this.commentText.isValid">You must enter your comment!</p>
           </div>
           <div class="form-control">
             <label for="commentGrade">Your grade</label>
-            <select
-              name="commentGrade"
-              id="commentGrade"
-              @change="onChange($event)"
-            >
+            <select name="commentGrade" id="commentGrade" @change="onChange($event)">
               <option value="1" selected>1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -71,9 +45,7 @@
           </div>
           <div class="form-control" style="text-align: center">
             <base-button @click="submitAnon">Submit anonymously</base-button>
-            <base-button @click="submitWithData" mode="outline"
-              >Submit with data</base-button
-            >
+            <base-button @click="submitWithData" mode="outline">Submit with data</base-button>
           </div>
         </form>
       </base-card>
@@ -105,11 +77,16 @@ export default {
       commentGrade: 1,
       timeOfCommenting: "",
       formIsValid: true,
+      error: null,
+      mode: ''
     };
   },
   methods: {
     clearValidity(input) {
       this[input].isValid = true;
+    },
+    handleError() {
+      this.error = null;
     },
     validatePersonData() {
       this.formIsValid = true;
@@ -132,9 +109,16 @@ export default {
         this.commentText.isValid = false;
         this.formIsValid = false;
       }
-      this.sendData();
     },
-    sendData() {
+    async sendData() {
+      if (this.mode === 'anon') {
+        this.firstName.val = "Anonymous";
+        this.lastName.val = "Anonymous";
+        this.email.val = "anon@madeup.net";
+      } else {
+        this.validatePersonData();
+      }
+      this.validatePersonComment();
       if (!this.formIsValid) {
         return;
       }
@@ -149,23 +133,22 @@ export default {
         commentGrade: parseInt(this.commentGrade),
         timeOfCommenting: this.timeOfCommenting,
       };
-      this.$store.dispatch("comments/addComment", dataToSend);
-      this.$router.replace("/allcomments");
+      try {
+        await this.$store.dispatch("comments/addComment", dataToSend);
+      } catch (error) {
+        this.error =
+          error || "Failed to add your comment. Check your data!";
+      }
+      if (!this.error) this.$router.replace("/allcomments");
     },
     onChange(e) {
       this.commentGrade = e.target.value;
     },
     submitAnon() {
-      this.firstName.val = "Anonymous";
-      this.lastName.val = "Anonymous";
-      this.email.val = "anon@madeup.net";
-      this.validatePersonComment();
+      this.mode = 'anon';
     },
     submitWithData() {
-      this.validatePersonData();
-      if (this.formIsValid) {
-        this.validatePersonComment();
-      }
+      this.mode = 'withData';
     },
   },
 };
@@ -182,7 +165,7 @@ label {
   margin-bottom: 0.5rem;
 }
 
-input + label {
+input+label {
   font-weight: normal;
   display: inline;
   margin: 0 0 0 0.5rem;

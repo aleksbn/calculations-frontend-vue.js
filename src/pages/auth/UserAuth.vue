@@ -1,19 +1,9 @@
 <template>
   <div>
-    <base-dialog
-      :show="!!error"
-      title="An error occured"
-      :showClose="true"
-      @close="handleError"
-    >
-      <p>{{ error }}</p></base-dialog
-    >
-    <base-dialog
-      :show="isLoading"
-      fixed
-      title="Authenticating..."
-      :showClose="false"
-    >
+    <base-dialog :show="!!error" title="An error occured" :showClose="true" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <base-dialog :show="isLoading" fixed title="Authenticating..." :showClose="false">
       <base-spinner></base-spinner>
     </base-dialog>
     <base-card>
@@ -32,15 +22,11 @@
         </div>
         <div class="form-control hidden" id="passDiv">
           <label for="passwordconfirm">Password confirmation</label>
-          <input
-            type="password"
-            id="passwordconfirm"
-            v-model.trim="passwordconfirm"
-          />
+          <input type="password" id="passwordconfirm" v-model.trim="passwordconfirm" />
         </div>
         <p v-if="!formIsValid" id="errorParagraph">
           Please, enter a valid email and password (must be at least 6
-          characters long). <span v-if="mode==='signup'">Confirmation fields must match the original ones too.</span>
+          characters long). <span v-if="mode === 'signup'">Confirmation fields must match the original ones too.</span>
         </p>
         <base-button>{{ submitButtonCaption }}</base-button>
         <base-button type="button" mode="flat" @click="switchAuthMode">{{
@@ -67,18 +53,10 @@ export default {
   },
   computed: {
     submitButtonCaption() {
-      if (this.mode === "login") {
-        return "Login";
-      } else {
-        return "Signup";
-      }
+      return this.mode === 'login' ? 'Login' : 'Signup';
     },
     switchButtonCaption() {
-      if (this.mode === "login") {
-        return "Signup instead";
-      } else {
-        return "Login instead";
-      }
+      return this.mode === 'login' ? 'Signup instead' : 'Login instead';
     },
   },
   methods: {
@@ -112,13 +90,10 @@ export default {
       const actionPayload = {
         email: this.email,
         password: this.password,
+        mode: this.mode
       };
       try {
-        if (this.mode === "login") {
-          await this.$store.dispatch("auth/login", actionPayload);
-        } else {
-          await this.$store.dispatch("auth/signup", actionPayload);
-        }
+        await this.$store.dispatch("auth/auth", actionPayload);
         this.$router.replace("/calculateloan");
       } catch (error) {
         this.error =
@@ -131,15 +106,12 @@ export default {
       var passDiv = document.getElementById("passDiv");
       emailDiv.classList.toggle("hidden");
       passDiv.classList.toggle("hidden");
-      if (this.mode === "login") {
-        this.mode = "signup";
-      } else {
-        this.mode = "login";
-      }
-      if(!emailDiv.classList.contains('hidden')) {
+      this.mode = this.mode === 'login' ? 'signup' : 'login';
+
+      if (!emailDiv.classList.contains('hidden')) {
         emailDiv.style.opacity = 1;
       }
-      if(!passDiv.classList.contains('hidden')) {
+      if (!passDiv.classList.contains('hidden')) {
         passDiv.style.opacity = 1;
       }
       this.formIsValid = true;
@@ -152,6 +124,7 @@ export default {
 .hidden {
   display: none;
 }
+
 .form-control {
   margin: 0.5rem 0;
 }
@@ -166,7 +139,7 @@ label {
   margin-bottom: 0.5rem;
 }
 
-input + label {
+input+label {
   font-weight: normal;
   display: inline;
   margin: 0 0 0 0.5rem;
@@ -194,7 +167,7 @@ input:focus {
   border: 1px solid red;
 }
 
-#errorParagraph{
+#errorParagraph {
   border: 2px solid red;
   font-weight: bold;
   color: red;

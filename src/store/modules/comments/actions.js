@@ -19,7 +19,8 @@ export default {
     );
 
     if (!response.ok) {
-      // error ...
+      const error = new Error(`${response.statusText}. It could be that the service is unavailable at the moment.`);
+      throw error;
     }
 
     context.commit("addComment", commData);

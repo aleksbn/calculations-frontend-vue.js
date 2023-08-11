@@ -1,8 +1,8 @@
 <template>
   <base-card>
     <h2>Filter the calculations</h2>
-    <select name="ammount" id="ammount" @change="configureFilter">
-      <option value="0">All the ammounts</option>
+    <select name="amount" id="amount" @change="configureFilter">
+      <option value="0">All the amounts</option>
       <option value="1">0 - 25000$</option>
       <option value="2">25.001 - 50.000$</option>
       <option value="3">50.001 - 100.000$</option>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       filterParams: {
-        ammount: 0,
+        amount: 0,
         time: 0,
         installments: 0,
       },

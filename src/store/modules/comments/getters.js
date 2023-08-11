@@ -18,19 +18,19 @@ export default {
 
     toReturn.total = state.comments.length;
     toReturn.one = state.comments.filter(
-      (x) => Number(x.commentGrade) === 1
+      (x) => +x.commentGrade === 1
     ).length;
     toReturn.two = state.comments.filter(
-      (x) => Number(x.commentGrade) === 2
+      (x) => +x.commentGrade === 2
     ).length;
     toReturn.three = state.comments.filter(
-      (x) => Number(x.commentGrade) === 3
+      (x) => +x.commentGrade === 3
     ).length;
     toReturn.four = state.comments.filter(
-      (x) => Number(x.commentGrade) === 4
+      (x) => +x.commentGrade === 4
     ).length;
     toReturn.five = state.comments.filter(
-      (x) => Number(x.commentGrade) === 5
+      (x) => +x.commentGrade === 5
     ).length;
     toReturn.average =
       (toReturn.one +

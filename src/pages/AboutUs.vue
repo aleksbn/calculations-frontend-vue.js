@@ -53,10 +53,8 @@
         Once the page opens, you need to input the base amount, annual interest
         rate and years for payment. Once you press the <b>Submit</b> button, a
         new dialog will appear asking of you to either
-        <b
-          >enter your personal data (don't worry, you can put in fake data, it
-          doesn't matter)</b
-        >, or press the <b>send anonymously</b> button and use some default
+        <b>enter your personal data (don't worry, you can put in fake data, it
+          doesn't matter)</b>, or press the <b>send anonymously</b> button and use some default
         data. If you opt out to leave the page, the calculation you made will be
         lost.
       </p>
@@ -99,18 +97,11 @@
       </p>
       <p>
         If you're interested in the entire code, this is the
-        <b
-          ><a href="https://github.com/aleksbn/Calculation-SPA" target="_blank"
-            >github project link</a
-          ></b
-        >
+        <b><a href="https://github.com/aleksbn/Calculation-SPA" target="_blank">github project link</a></b>
         so you can see it yourself. If you want to contant me, use my
-        <b
-          ><a href="https://www.linkedin.com/in/aleksandar-matic-8a7b21120/"
-            >Linkedin profile link</a
-          ></b
-        >
-        for that. If you notice anything that's off on this demo project,
+        <b><a href="https://www.linkedin.com/in/aleksandar-matic-8a7b21120/" target="_blank">Linkedin profile link</a></b>
+        for that. You can also check my <b><a href="https://aleksandar-matic.web.app/" target="_blank">portfolio
+            site</a></b> as well and see my other projetcs. If you notice anything that's off in this app,
         <b><a href="mailto:aleksandar.matic986@gmail.com">mail me</a></b> to
         correct it. Cheers!
       </p>
@@ -122,6 +113,7 @@
 p {
   text-align: justify;
 }
+
 a {
   text-decoration: none;
 }

@@ -19,17 +19,17 @@ export default {
     };
     toReturn.totalCalculations = state.calculations.length;
     for (let index in state.calculations) {
-      toReturn.totalBaseAmount += Number(state.calculations[index].baseAmount);
+      toReturn.totalBaseAmount += +state.calculations[index].baseAmount;
     }
     for (let index in state.calculations) {
-      toReturn.totalAmount += Number(state.calculations[index].totalForRepayment);
+      toReturn.totalAmount += +state.calculations[index].totalForRepayment;
     }
     for (let index in state.calculations) {
       toReturn.totalInstallment +=
-      Number(state.calculations[index].monthlyInstallment);
+      +state.calculations[index].monthlyInstallment;
     }
     for (let index in state.calculations) {
-      toReturn.totalLength += Number(state.calculations[index].yearsForPayment);
+      toReturn.totalLength += +state.calculations[index].yearsForPayment;
     }
     toReturn.averageBaseAmount =
       toReturn.totalBaseAmount / toReturn.totalCalculations;

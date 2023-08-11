@@ -5,16 +5,10 @@
     </h3>
     <div>
       Opinion:
-      <b
-        style="cursor: pointer"
-        v-if="isTextShort"
-        @click="toggleText(false)"
-        >{{ commentText }}</b
-      >
+      <b style="cursor: pointer" v-if="isTextShort" @click="toggleText(false)">{{ commentText }}</b>
       <b class="displayTextClass" v-else @click="toggleText(true)">{{
         hiddenCommentText
-      }}</b
-      ><br />
+      }}</b><br />
       <!--       Time of commenting: <b>{{ convertedTime }}</b
       ><br /> -->
     </div>
@@ -88,11 +82,7 @@ export default {
       return gradeToDisplay;
     },
     hiddenCommentText() {
-      if (this.commentText.length >= 33) {
-        return this.commentText.substring(0, 30) + "...";
-      } else {
-        return this.commentText;
-      }
+      return this.commentText.length >= 33 ? this.commentText.substring(0, 30) + "..." : this.commentText;
     },
     isRecent() {
       return new Date(this.timeOfCommenting).toLocaleDateString() === new Date().toLocaleDateString() ? "recent" : "";
@@ -132,7 +122,7 @@ div {
   justify-content: flex-end;
 }
 
-.recent{
+.recent {
   background-color: cyan;
 }
 </style>

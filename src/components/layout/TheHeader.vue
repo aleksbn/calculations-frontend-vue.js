@@ -63,7 +63,7 @@ header {
 
 header a {
   text-decoration: none;
-  color: #f391e3;
+  color: #f8e6f5;
   display: inline-block;
   padding: 0.75rem 1.5rem;
   font-weight: bold;
@@ -93,6 +93,7 @@ h1 a.router-link-active {
 }
 
 header nav {
+  font-size: 1.2em;
   width: 90%;
   margin: auto;
   display: flex;

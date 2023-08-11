@@ -65,14 +65,8 @@ export default {
       comments.sort(function (a, b) {
         return new Date(b.timeOfCommenting) - new Date(a.timeOfCommenting);
       });
-      if (this.selectedGrade != 0) {
-        return comments.filter((comment) => {
-          if (comment.commentGrade == this.selectedGrade) {
-            return true;
-          } else {
-            return false;
-          }
-        });
+      if (this.selectedGrade !== 0) {
+        return comments.filter(comment => comment.commentGrade === this.selectedGrade);
       }
       return comments;
     },
