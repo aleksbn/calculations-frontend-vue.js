@@ -9,7 +9,7 @@
         <p><b>Total calculations: </b><br />{{ stats.totalCalculations }}</p>
         <p><b>Total base amount: </b><br />{{ Intl.NumberFormat('en-US', currencyOptions).format(stats.totalBaseAmount) }}
           $</p>
-        <p><b>Average base amount: </b><br />{{ stats.averageBaseAmount.toFixed(2) }} $</p>
+        <p><b>Average base amount: </b><br />{{ Intl.NumberFormat('en-US', currencyOptions).format(stats.averageBaseAmount) }} $</p>
         <p>
           <b>Total amount to be repayed: </b><br />{{ Intl.NumberFormat('en-US',
             currencyOptions).format(stats.totalAmount) }} $
@@ -26,7 +26,7 @@
         </p>
         <p><b>Total length of loan: </b><br />{{ stats.totalLength }} years</p>
         <p>
-          <b>Average length of loan: </b><br />{{ stats.averageLength.toFixed(2) }} years
+          <b>Average length of loan: </b><br />{{ `${Math.floor(stats.averageLength)} years and ${Math.round((stats.averageLength % 1) * 12)} months` }}
         </p>
       </div>
     </div>

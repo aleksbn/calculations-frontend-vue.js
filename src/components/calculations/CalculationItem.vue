@@ -46,8 +46,7 @@ export default {
     isRecent() {
       const currentDate = new Date().toLocaleDateString();
       const addedByUser = JSON.parse(localStorage.getItem('addedByUser'));
-      console.log(this.id);
-      return addedByUser.some(calculation => calculation.id === this.id && new Date(calculation.date).toLocaleDateString() === currentDate) ? 'recent' : '';
+      return addedByUser ? (addedByUser.some(calculation => calculation.id === this.id && new Date(calculation.date).toLocaleDateString() === currentDate) ? 'recent' : '') : '';
     },
   }
 }
