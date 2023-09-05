@@ -1,24 +1,8 @@
 # calculation-project
 
-## Project setup
-```
-npm install
-```
+This is a demo project demonstrating mu knowledge of Vue.js framework, including vuex for data managing, firebase as the database and hosting and google chart js for making charts.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Web address:
+https://calculation-spa.web.app/
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Skills: Vue.js · JavaScript · vuex · Git · Firebase
