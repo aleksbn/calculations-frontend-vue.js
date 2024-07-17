@@ -1,14 +1,16 @@
 <template>
   <base-card>
-    <h2>Filter the comments</h2>
-    <select name="grade" id="grade" @change="filter">
-      <option value="0">Select the grade to be filtered</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
+    <div class="filter">
+      <h2>Filter the comments</h2>
+      <select name="grade" id="grade" @change="filter">
+        <option value="0">Select the grade to be filtered</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
   </base-card>
 </template>
 
@@ -44,5 +46,13 @@ select option {
   background-color: #e1f5fe;
   color: #333;
   border: none;
+}
+
+@media (max-width: 670px) {
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

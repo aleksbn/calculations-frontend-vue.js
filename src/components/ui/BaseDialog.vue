@@ -66,7 +66,7 @@ div {
 }
 
 dialog {
-  position: fixed;
+  position: absolute;
   top: 5vh;
   left: 10%;
   width: 80%;
@@ -145,22 +145,34 @@ input:focus {
 }
 
 .dialog-enter-from,
-.dialog-leave-to{
+.dialog-leave-to {
   opacity: 0;
   transform: scale(0.8);
 }
 
-.dialog-enter-active{
+.dialog-enter-active {
   transition: all 0.3s ease-out;
 }
 
-.dialog-leave-active{
+.dialog-leave-active {
   transition: all 0.3s ease-in;
 }
 
 .dialog-enter-to,
-.dialog-leave-from{
+.dialog-leave-from {
   opacity: 1;
   transform: scale(1);
+}
+
+@media (max-width: 350px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 270px) {
+  h2 {
+    font-size: 1rem;
+  }
 }
 </style>

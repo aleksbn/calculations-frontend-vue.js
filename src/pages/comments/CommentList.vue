@@ -66,7 +66,9 @@ export default {
         return new Date(b.timeOfCommenting) - new Date(a.timeOfCommenting);
       });
       if (this.selectedGrade !== 0) {
-        return comments.filter(comment => comment.commentGrade === this.selectedGrade);
+        return comments.filter(
+          (comment) => comment.commentGrade === this.selectedGrade
+        );
       }
       return comments;
     },
@@ -101,5 +103,23 @@ export default {
 <style scoped>
 li {
   list-style: none;
+}
+
+@media (max-width: 520px) {
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .controls button {
+    width: 80%;
+  }
+
+  .controls a {
+    width: 80%;
+    text-align: center;
+  }
 }
 </style>

@@ -33,11 +33,11 @@ export default {
     },
   },
   mounted() {
-    const menuToggleCheckbox = document.getElementById('menu-toggle');
+    const menuToggleCheckbox = document.getElementById("menu-toggle");
 
-    const menuItems = document.querySelectorAll('.menu li');
+    const menuItems = document.querySelectorAll(".menu li");
     menuItems.forEach((menuItem) => {
-      menuItem.addEventListener('click', () => {
+      menuItem.addEventListener("click", () => {
         menuToggleCheckbox.checked = false;
       });
     });
@@ -73,7 +73,7 @@ header a {
 a:active,
 a:hover,
 a.router-link-active {
-  color: red;
+  color: #ff7575;
   font-weight: bold;
 }
 
@@ -93,7 +93,7 @@ h1 a.router-link-active {
 }
 
 header nav {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   width: 90%;
   margin: auto;
   display: flex;
@@ -204,6 +204,38 @@ body {
 #menu-toggle:checked + .menu-button-container .menu-button::after {
   margin-top: 0px;
   transform: rotate(-405deg);
+}
+
+@media (max-width: 1200px) {
+  header nav {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .menu > li {
+    margin: 0 0.5rem;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  header nav {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .menu > li {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 700px) {

@@ -6,7 +6,6 @@ export default {
       payload.mode === "signup"
         ? "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk"
         : "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwJBBTxokw9MPqvwGmp1N0t3PtCkuEtQk";
-    console.log(payload);
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify({

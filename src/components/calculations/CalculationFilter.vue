@@ -1,27 +1,29 @@
 <template>
   <base-card>
-    <h2>Filter the calculations</h2>
-    <select name="amount" id="amount" @change="configureFilter">
-      <option value="0">All the amounts</option>
-      <option value="1">0 - 25000$</option>
-      <option value="2">25.001 - 50.000$</option>
-      <option value="3">50.001 - 100.000$</option>
-      <option value="4">100.001$+</option>
-    </select>
-    <select name="time" id="time" @change="configureFilter">
-      <option value="0">All lengths</option>
-      <option value="1">0 - 5 years</option>
-      <option value="2">5 - 10 years</option>
-      <option value="3">10 - 20 years</option>
-      <option value="4">20+ years</option>
-    </select>
-    <select name="installments" id="installments" @change="configureFilter">
-      <option value="0">All installments</option>
-      <option value="1">0 - 300$</option>
-      <option value="2">301 - 500$</option>
-      <option value="3">501 - 1.000$</option>
-      <option value="4">1.001$+</option>
-    </select>
+    <div class="filter">
+      <h2>Filter the calculations</h2>
+      <select name="amount" id="amount" @change="configureFilter">
+        <option value="0">All the amounts</option>
+        <option value="1">0 - 25000$</option>
+        <option value="2">25.001 - 50.000$</option>
+        <option value="3">50.001 - 100.000$</option>
+        <option value="4">100.001$+</option>
+      </select>
+      <select name="time" id="time" @change="configureFilter">
+        <option value="0">All lengths</option>
+        <option value="1">0 - 5 years</option>
+        <option value="2">5 - 10 years</option>
+        <option value="3">10 - 20 years</option>
+        <option value="4">20+ years</option>
+      </select>
+      <select name="installments" id="installments" @change="configureFilter">
+        <option value="0">All installments</option>
+        <option value="1">0 - 300$</option>
+        <option value="2">301 - 500$</option>
+        <option value="3">501 - 1.000$</option>
+        <option value="4">1.001$+</option>
+      </select>
+    </div>
   </base-card>
 </template>
 
@@ -68,5 +70,13 @@ select option {
   background-color: #e1f5fe;
   color: #333;
   border: none;
+}
+
+@media (max-width: 670px) {
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
